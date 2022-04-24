@@ -1,6 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-var clientId = "YOUR_CLIENT_ID";
+var clientId = "YOUR_CLIENT";
 var clientSecret = "YOUR_SECRET";
 
 builder.Services.AddAuthentication(options =>
@@ -9,8 +9,8 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = "oidc";
 })
     .AddCookie("Cookies")
-    .AddOpenIdConnect(
-   authenticationScheme: "Google",
+    .AddOpenIdConnect("oidc",
+   //authenticationScheme: "Google",
    displayName: "Google",
    options =>
    {
@@ -22,6 +22,8 @@ builder.Services.AddAuthentication(options =>
 
        // Add email scope
        options.Scope.Add("email");
+       options.Scope.Add("profile");
+     
    });
 
 builder.Services.AddControllersWithViews();
